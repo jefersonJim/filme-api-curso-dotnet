@@ -1,9 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace FilmesAPI.Data.Dtos
+namespace FilmesAPI.Data.Dtos.Filme
 {
-    public class UpdateFilmeDto
+    public class ReadFilmeDto
     {
+        [Key]
+        [Required]
+        public int Id { get; set; }
         [Required(ErrorMessage = "O campo Título é obrigatório")]
         public string Titulo { get; set; }
         [Required(ErrorMessage = "O campo Diretor é obrigatório")]
@@ -12,5 +15,6 @@ namespace FilmesAPI.Data.Dtos
         public string Genero { set; get; }
         [Range(1, 600, ErrorMessage = "A duração deve estar entre 1 e 600")]
         public int Duracao { set; get; }
+        public DateTime HoraDaConsulta { set; get; }
     }
 }

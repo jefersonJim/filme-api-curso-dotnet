@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using FilmesAPI.Data;
-using FilmesAPI.Data.Dtos;
-using FilmesAPI.models;
+using FilmesAPI.Data.Dtos.Filme;
+using FilmesAPI.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FilmesAPI.Controllers
@@ -10,10 +10,10 @@ namespace FilmesAPI.Controllers
     [Route("[controller]")]
     public class FilmeController : ControllerBase
     {
-        private FilmeContext _context;
+        private AppDbContext _context;
         private IMapper _mapper;
 
-        public FilmeController(FilmeContext context, IMapper mapper)
+        public FilmeController(AppDbContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
@@ -25,7 +25,8 @@ namespace FilmesAPI.Controllers
             Filme filme = _mapper.Map<Filme>(filmeDto);
             _context.Add(filme);
             _context.SaveChanges();
-            return CreatedAtAction(nameof(RecuperaFilmesPorId), new { Id = filme.Id }, filme );
+            ReadFilmeDto readFilme = _mapper.Map<ReadFilmeDto>(filme);
+            return CreatedAtAction(nameof(RecuperaFilmesPorId), new { Id = filme.Id }, readFilme);
         }
 
         [HttpGet]
@@ -37,7 +38,7 @@ namespace FilmesAPI.Controllers
         [HttpGet("{id}")]
         public IActionResult RecuperaFilmesPorId(int id)
         {
-            var filme = _context?.Filmes?.FirstOrDefault(filme => filme.Id == id);
+            var filme = _context.Filmes.FirstOrDefault(filme => filme.Id == id);
             if(filme != null)
             {
                 ReadFilmeDto readFilme = _mapper.Map<ReadFilmeDto>(filme);
@@ -48,7 +49,7 @@ namespace FilmesAPI.Controllers
         [HttpPut("{id}")]
         public IActionResult AtualizaFilme(int id, [FromBody] UpdateFilmeDto filmeDto)
         {
-            var filme = _context?.Filmes?.FirstOrDefault(filme => filme.Id == id);
+            var filme = _context.Filmes.FirstOrDefault(filme => filme.Id == id);
             if (filme == null)
             {
                 return NotFound();
@@ -62,7 +63,7 @@ namespace FilmesAPI.Controllers
         [HttpDelete("{id}")]
         public IActionResult DeletaFilme(int id)
         {
-            var mFilme = _context?.Filmes?.FirstOrDefault(filme => filme.Id == id);
+            var mFilme = _context.Filmes.FirstOrDefault(filme => filme.Id == id);
             if (mFilme == null)
             {
                 return NotFound();
