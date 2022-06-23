@@ -45,11 +45,13 @@ namespace FilmesAPI.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int>("Bairro")
-                        .HasColumnType("int");
+                    b.Property<string>("Bairro")
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
-                    b.Property<int>("Logradouro")
-                        .HasColumnType("int");
+                    b.Property<string>("Logradouro")
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
                     b.Property<int>("Numero")
                         .HasColumnType("int");

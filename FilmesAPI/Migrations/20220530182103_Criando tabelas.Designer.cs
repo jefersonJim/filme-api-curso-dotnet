@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FilmesAPI.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20220524223719_Relacionando cinema e endereco")]
-    partial class Relacionandocinemaeendereco
+    [Migration("20220530182103_Criando tabelas")]
+    partial class Criandotabelas
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -47,11 +47,13 @@ namespace FilmesAPI.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int>("Bairro")
-                        .HasColumnType("int");
+                    b.Property<string>("Bairro")
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
-                    b.Property<int>("Logradouro")
-                        .HasColumnType("int");
+                    b.Property<string>("Logradouro")
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
                     b.Property<int>("Numero")
                         .HasColumnType("int");

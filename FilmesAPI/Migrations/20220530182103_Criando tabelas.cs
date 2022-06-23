@@ -5,26 +5,11 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace FilmesAPI.Migrations
 {
-    public partial class CriandoTabelasIniciais : Migration
+    public partial class Criandotabelas : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AlterDatabase()
-                .Annotation("MySql:CharSet", "utf8mb4");
-
-            migrationBuilder.CreateTable(
-                name: "Cinemas",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Nome = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4")
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Cinemas", x => x.Id);
-                })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
@@ -33,8 +18,10 @@ namespace FilmesAPI.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Logradouro = table.Column<int>(type: "int", nullable: false),
-                    Bairro = table.Column<int>(type: "int", nullable: false),
+                    Logradouro = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Bairro = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
                     Numero = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -62,6 +49,34 @@ namespace FilmesAPI.Migrations
                     table.PrimaryKey("PK_Filmes", x => x.Id);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "Cinemas",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Nome = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    EnderecoID = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Cinemas", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Cinemas_Enderecos_EnderecoID",
+                        column: x => x.EnderecoID,
+                        principalTable: "Enderecos",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Cinemas_EnderecoID",
+                table: "Cinemas",
+                column: "EnderecoID",
+                unique: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -70,10 +85,10 @@ namespace FilmesAPI.Migrations
                 name: "Cinemas");
 
             migrationBuilder.DropTable(
-                name: "Enderecos");
+                name: "Filmes");
 
             migrationBuilder.DropTable(
-                name: "Filmes");
+                name: "Enderecos");
         }
     }
 }

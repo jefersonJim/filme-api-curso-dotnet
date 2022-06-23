@@ -32,7 +32,7 @@ namespace FilmesAPI.Controllers
         [HttpGet]
         public IActionResult RecuperaEnderecos()
         {
-            return Ok(_context.Enderecos);
+            return Ok(_mapper.Map<ReadEnderecoDto[]>(_context.Enderecos));
         }
 
         [HttpGet("{id}")]
