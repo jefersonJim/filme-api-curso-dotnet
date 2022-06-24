@@ -1,4 +1,5 @@
 using FilmesAPI.Data;
+using FilmesAPI.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,6 +13,12 @@ builder.Services.AddDbContext<AppDbContext>(opts =>
     .UseMySql(connString, ServerVersion.AutoDetect(connString))
 
 );
+
+builder.Services.AddScoped<CinemaService, CinemaService>();
+builder.Services.AddScoped<FilmeService, FilmeService>();
+builder.Services.AddScoped<EnderecoService, EnderecoService>();
+builder.Services.AddScoped<GerenteService, GerenteService>();
+builder.Services.AddScoped<SessaoService, SessaoService>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
