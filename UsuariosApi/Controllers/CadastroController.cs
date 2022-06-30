@@ -25,8 +25,8 @@ namespace UsuariosApi.Controllers
             return Ok(result.Reasons);
         }
 
-        [HttpPost("/ativa")]
-        public IActionResult AtivaContaUsuario(AtivaContaRequest request)
+        [HttpGet("/ativa")]
+        public IActionResult AtivaContaUsuario([FromQuery] AtivaContaRequest request)
         {
             Result result = _cadastroService.AtivaContaUsuario(request);
             if (result.IsFailed) return StatusCode(500);
