@@ -14,7 +14,9 @@ builder.Services.AddDbContext<UsuarioDbContext>(opts =>
     .UseMySql(connString, ServerVersion.AutoDetect(connString))
 );
 
-builder.Services.AddIdentity<IdentityUser<int>, IdentityRole<int>>()
+builder.Services.AddIdentity<IdentityUser<int>, IdentityRole<int>>(
+        opt => opt.SignIn.RequireConfirmedEmail = true
+    )
     .AddEntityFrameworkStores<UsuarioDbContext>();
 
 
