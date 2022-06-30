@@ -30,10 +30,11 @@ namespace FilmesAPI.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "admin, regular")]
         public IActionResult RecuperarFilmes()
         {
             List<ReadFilmeDto> filmes = _filmeService.RecuperaFilmes();
-            return Ok();
+            return Ok(filmes);
         }
 
         [HttpGet("{id}")]

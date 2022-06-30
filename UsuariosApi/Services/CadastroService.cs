@@ -30,9 +30,8 @@ namespace UsuariosApi.Services
             if (resultIdentity.Result.Succeeded)
             {
 
-                var createRoleResult = _roleManager.CreateAsync(new IdentityRole<int>("admin")).Result;
-                var usuarioRoleResult = _userManager.AddToRoleAsync(usuarioIdentity, "admin").Result;
-
+                
+                var usuarioRoleResult = _userManager.AddToRoleAsync(usuarioIdentity, "regular").Result;
                 var code = _userManager.GenerateEmailConfirmationTokenAsync(usuarioIdentity).Result;
                 var encodedCode = HttpUtility.UrlEncode(code);
                 _emailService.EnviarEmail(new [] { usuarioIdentity.Email }, 
