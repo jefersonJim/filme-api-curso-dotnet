@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using UsuariosApi.Data;
+using UsuariosApi.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,7 +11,6 @@ builder.Services.AddControllers();
 var connString = builder.Configuration.GetConnectionString("UsuarioConnection");
 builder.Services.AddDbContext<UsuarioDbContext>(opts =>
     opts
-    .UseLazyLoadingProxies()
     .UseMySql(connString, ServerVersion.AutoDetect(connString))
 );
 
@@ -22,6 +22,9 @@ builder.Services.AddIdentity<IdentityUser<int>, IdentityRole<int>>()
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+builder.Services.AddScoped<CadastroService, CadastroService>();
+builder.Services.AddScoped<LoginService, LoginService>();
 
 var app = builder.Build();
 
