@@ -17,7 +17,8 @@ builder.Services.AddDbContext<UsuarioDbContext>(opts =>
 builder.Services.AddIdentity<IdentityUser<int>, IdentityRole<int>>(
         opt => opt.SignIn.RequireConfirmedEmail = true
     )
-    .AddEntityFrameworkStores<UsuarioDbContext>();
+    .AddEntityFrameworkStores<UsuarioDbContext>()
+    .AddDefaultTokenProviders();
 
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

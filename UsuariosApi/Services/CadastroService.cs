@@ -21,7 +21,12 @@ namespace UsuariosApi.Services
             Usuario usuario = _mapper.Map<Usuario>(createDto);
             IdentityUser<int> usuarioIdentity = _mapper.Map<IdentityUser<int>>(usuario);
             Task<IdentityResult> resultIdentity = _userManager.CreateAsync(usuarioIdentity, createDto.Password);
-            if (resultIdentity.Result.Succeeded) return Result.Ok();
+            if (resultIdentity.Result.Succeeded)
+            {
+                var code = _userManager.GenerateEmailConfirmationTokenAsync(usuarioIdentity).Result;
+                return Result.Ok().WithSuccess(code);
+            }
+
             return Result.Fail("Erro ao tentar cadastrar o usuário");
         }
     }
