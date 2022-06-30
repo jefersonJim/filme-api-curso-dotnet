@@ -18,7 +18,7 @@ namespace UsuariosApi.Services
             };
 
             var chave = new SymmetricSecurityKey(
-                Encoding.UTF8.GetBytes("")
+                Encoding.UTF8.GetBytes("asldfjasd8asdkjjbs083baskjdhf8123bask837ja")
                 );
 
             var credentials = new SigningCredentials(chave, SecurityAlgorithms.HmacSha256);

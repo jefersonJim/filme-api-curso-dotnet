@@ -25,6 +25,7 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.AddScoped<CadastroService, CadastroService>();
 builder.Services.AddScoped<LoginService, LoginService>();
+builder.Services.AddScoped<TokenService, TokenService>();
 
 var app = builder.Build();
 

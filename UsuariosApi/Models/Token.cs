@@ -4,9 +4,9 @@
     {
         public Token(string value)
         {
-            this.value = value;
+            this.Value = value;
         }
 
-        public string value { get; }
+        public string Value { get; }
     }
 }
