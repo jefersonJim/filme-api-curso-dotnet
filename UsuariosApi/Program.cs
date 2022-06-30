@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 using UsuariosApi.Data;
 using UsuariosApi.Services;
 
@@ -32,6 +33,9 @@ builder.Services.AddScoped<TokenService, TokenService>();
 builder.Services.AddScoped<LogoutService, LogoutService>();
 builder.Services.AddScoped<EmailService, EmailService>();
 
+
+builder.Configuration.AddEnvironmentVariables()
+    .AddUserSecrets(Assembly.GetExecutingAssembly(), true);
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
