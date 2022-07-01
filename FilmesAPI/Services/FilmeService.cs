@@ -25,9 +25,22 @@ namespace FilmesAPI.Services
             return _mapper.Map<ReadFilmeDto>(filme);
         }
 
-        public List<ReadFilmeDto> RecuperaFilmes()
+        public List<ReadFilmeDto>? RecuperaFilmes(int? classificacaoEtaria)
         {
-            List<Filme> filmes = _context.Filmes.ToList();
+            List<Filme> filmes;
+            if(classificacaoEtaria == null)
+            {
+                filmes = _context.Filmes.ToList();
+            }
+            else
+            {
+                filmes = _context.Filmes.Where(filme => filme.ClassificacaoEtaria <= classificacaoEtaria).ToList();
+            }
+
+            if(filmes == null)
+            {
+                return null;
+            }
             return _mapper.Map<List<ReadFilmeDto>>(filmes);
         }
 
